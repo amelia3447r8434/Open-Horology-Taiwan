@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Horology Taiwan｜開放鐘錶學習平台</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5efe4;
+    --warm-white: #faf7f2;
+    --gold: #b8943f;
+    --gold-light: #d4ab5a;
+    --navy: #1e3256;
+    --navy-mid: #2a4270;
+    --brown: #6b4c2a;
+    --brown-light: #8b6340;
+    --gray-warm: #8c8070;
+    --text-dark: #2a2018;
+    --text-mid: #4a3f30;
+    --accent-rust: #a0522d;
+    --gear-color: rgba(184,148,63,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: linear-gradient(135deg, var(--cream) 0%, #ede4d0 100%);
+    border-bottom: 1px solid rgba(184,148,63,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(42,30,18,0.08);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='80' fill='none' stroke='%23b8943f' stroke-width='0.5' stroke-opacity='0.12'/%3E%3Ccircle cx='100' cy='100' r='60' fill='none' stroke='%23b8943f' stroke-width='0.5' stroke-opacity='0.1'/%3E%3C/svg%3E");
+    background-position: right -40px center;
+    background-repeat: no-repeat;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 2px 12px rgba(30,50,86,0.3);
+  }
+
+  .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.3px;
+  }
+
+  .logo-text span {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    background: var(--navy);
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+  }
+
+  .nav-links li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 36px;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .nav-links li a:hover,
+  .nav-links li a.active {
+    color: #fff;
+    border-bottom-color: var(--gold);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .nav-links li + li {
+    border-left: 1px solid rgba(255,255,255,0.12);
+  }
+
+  /* ─── MAIN LAYOUT ─── */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 0;
+    min-height: calc(100vh - 120px);
+  }
+
+  /* ─── LEFT CONTENT ─── */
+  .content-area {
+    padding: 0;
+  }
+
+  /* ─── TAB PANELS ─── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ─── MAP SECTION ─── */
+  .map-section {
+    padding: 20px 24px;
+    background: var(--warm-white);
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 1.5px solid rgba(184,148,63,0.3);
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    max-width: 320px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .search-bar input {
+    border: none;
+    outline: none;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    width: 100%;
+    background: transparent;
+  }
+
+  .map-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1.5px solid rgba(184,148,63,0.2);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+
+  .map-placeholder {
+    width: 100%;
+    height: 340px;
+    background: linear-gradient(145deg, #e8f0e8 0%, #d4e4d4 30%, #c8d8c8 60%, #b8c8b8 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Taiwan silhouette SVG map */
+  .taiwan-map {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-60%);
+    opacity: 0.7;
+  }
+
+  .map-pin {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+    z-index: 5;
+  }
+
+  .map-pin:hover { transform: translateY(-3px) scale(1.1); }
+
+  .pin-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  }
+
+  .pin-icon span {
+    transform: rotate(45deg);
+    font-size: 14px;
+  }
+
+  .pin-label {
+    background: white;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-top: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.4;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .pin-repair .pin-icon { background: var(--gold); }
+  .pin-micro .pin-icon { background: var(--accent-rust); }
+  .pin-learn .pin-icon { background: var(--navy); }
+
+  /* pin positions */
+  .pin-1 { top: 20%; left: 38%; }
+  .pin-2 { top: 26%; left: 52%; }
+  .pin-3 { top: 40%; left: 28%; }
+  .pin-4 { top: 48%; left: 42%; }
+  .pin-5 { top: 58%; left: 32%; }
+  .pin-6 { top: 60%; left: 46%; }
+  .pin-7 { top: 72%; left: 52%; }
+
+  /* Map info popup */
+  .map-popup {
+    position: absolute;
+    top: 30%;
+    left: 38%;
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    width: 220px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    z-index: 10;
+    border: 1px solid rgba(184,148,63,0.2);
+    animation: popIn 0.3s ease;
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.9) translateY(4px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    cursor: pointer;
+    color: var(--gray-warm);
+    font-size: 16px;
+  }
+
+  .popup-img {
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(135deg, #c9a96e, #8b6340);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .popup-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+
+  .popup-sub {
+    font-size: 11px;
+    color: var(--gray-warm);
+    margin-bottom: 6px;
+  }
+
+  .popup-desc {
+    font-size: 11px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .popup-btn {
+    background: var(--gold);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    transition: background 0.2s;
+  }
+
+  .popup-btn:hover { background: var(--brown); }
+
+  /* Map controls */
+  .map-controls {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .map-ctrl-btn {
+    width: 28px;
+    height: 28px;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--text-dark);
+    font-weight: 600;
+  }
+
+  .map-ctrl-btn:first-child { border-radius: 4px 4px 0 0; }
+  .map-ctrl-btn:last-child { border-radius: 0 0 4px 4px; }
+  .map-ctrl-btn:hover { background: var(--cream); }
+
+  /* Legend */
+  .map-legend {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 8px;
+    padding: 10px 14px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(184,148,63,0.15);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-mid);
+    margin-bottom: 5px;
+  }
+
+  .legend-item:last-child { margin-bottom: 0; }
+
+  .legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ─── EXPLORE GUIDES ─── */
+  .explore-section {
+    padding: 20px 24px;
+    border-top: 1px solid rgba(184,148,63,0.15);
+  }
+
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(184,148,63,0.4), transparent);
+  }
+
+  .guide-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .guide-card {
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    border: 1px solid rgba(184,148,63,0.15);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+
+  .guide-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  .guide-card-img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+  }
+
+  .guide-card-img-placeholder {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+  }
+
+  .guide-card-body {
+    padding: 12px;
+    background: white;
+  }
+
+  .guide-card-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .guide-card-desc {
+    font-size: 11px;
+    color: var(--gray-warm);
+    line-height: 1.6;
+  }
+
+  /* ─── BRAND LIBRARY ─── */
+  .brand-section {
+    padding: 28px 24px;
+  }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 16px;
+  }
+
+  .brand-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1.5px solid rgba(184,148,63,0.15);
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .brand-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 6px 20px rgba(184,148,63,0.15);
+    transform: translateY(-2px);
+  }
+
+  .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--navy);
+    color: white;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .brand-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .brand-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--gold);
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .brand-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .brand-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .brand-tag {
+    background: var(--cream);
+    color: var(--brown);
+    border-radius: 4px;
+    padding: 3px 9px;
+    font-size: 11px;
+    border: 1px solid rgba(107,76,42,0.15);
+  }
+
+  /* ─── LEARNING PATH ─── */
+  .learning-section {
+    padding: 28px 24px;
+  }
+
+  .path-intro {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 24px;
+    border: 1.5px solid rgba(184,148,63,0.2);
+    border-left: 4px solid var(--gold);
+  }
+
+  .path-intro p {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+
+  .path-steps {
+    display: grid;
+    gap: 16px;
+  }
+
+  .path-step {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1.5px solid rgba(184,148,63,0.12);
+    display: flex;
+    gap: 16px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .path-step:hover {
+    border-color: var(--gold-light);
+    box-shadow: 0 4px 16px rgba(184,148,63,0.12);
+  }
+
+  .step-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .step-content h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .step-content p {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .step-tag {
+    display: inline-block;
+    background: var(--cream);
+    color: var(--brown);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(107,76,42,0.12);
+  }
+
+  /* ─── TOPICS ─── */
+  .topics-section {
+    padding: 28px 24px;
+  }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 16px;
+  }
+
+  .topic-card {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    border: 1.5px solid rgba(184,148,63,0.12);
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .topic-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 6px 20px rgba(184,148,63,0.12);
+  }
+
+  .topic-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .topic-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .topic-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    background: var(--cream);
+    border-left: 1px solid rgba(184,148,63,0.2);
+    padding: 24px 20px;
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+  }
+
+  .sidebar-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid rgba(184,148,63,0.3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sidebar-label {
+    font-size: 12px;
+    color: var(--gray-warm);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+
+  .sidebar-value {
+    font-size: 13px;
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid rgba(184,148,63,0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .sidebar-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .sidebar-chip {
+    background: white;
+    border: 1px solid rgba(184,148,63,0.25);
+    border-radius: 16px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: var(--text-mid);
+  }
+
+  .sidebar-chip.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: white;
+  }
+
+  /* Recommendations */
+  .rec-list {
+    margin-top: 20px;
+    border-top: 1.5px solid rgba(184,148,63,0.25);
+    padding-top: 18px;
+  }
+
+  .rec-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .rec-item:hover { opacity: 0.75; }
+
+  .rec-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+
+  .rec-text {
+    font-size: 12.5px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  .rec-text strong {
+    display: block;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  /* ─── GEAR DECORATION ─── */
+  .gear-deco {
+    position: fixed;
+    bottom: -60px;
+    right: -60px;
+    width: 250px;
+    height: 250px;
+    opacity: 0.04;
+    pointer-events: none;
+    animation: rotateSlow 30s linear infinite;
+  }
+
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    margin-top: 0;
+    border-top: 3px solid var(--gold);
+  }
+
+  footer strong { color: var(--gold); }
+
+  /* Attribution */
+  .map-attr {
+    position: absolute;
+    bottom: 6px;
+    right: 8px;
+    font-size: 10px;
+    color: rgba(0,0,0,0.4);
+  }
+
+  /* About section */
+  .about-section {
+    padding: 28px 24px;
+  }
+
+  .about-box {
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    border: 1.5px solid rgba(184,148,63,0.15);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  .about-box p {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.9;
+    margin-bottom: 14px;
+  }
+
+  .about-box p:last-child { margin-bottom: 0; }
+
+  .highlight {
+    color: var(--navy);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 3px;
+  }
+
+  .project-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .pillar {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 18px;
+    border: 1px solid rgba(184,148,63,0.2);
+    text-align: center;
+  }
+
+  .pillar-icon { font-size: 28px; margin-bottom: 8px; }
+
+  .pillar-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .pillar-desc {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* Goals table */
+  .goals-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 13px;
+  }
+
+  .goals-table th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+  }
+
+  .goals-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(184,148,63,0.1);
+    vertical-align: top;
+    line-height: 1.6;
+    color: var(--text-mid);
+  }
+
+  .goals-table tr:nth-child(even) td { background: rgba(245,239,228,0.4); }
+
+  .goal-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: white;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; border-left: none; border-top: 1px solid rgba(184,148,63,0.2); }
+    .guide-cards { grid-template-columns: 1fr 1fr; }
+    .topic-grid { grid-template-columns: 1fr; }
+    .project-pillars { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Gear decoration -->
+<svg class="gear-deco" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M43.3,7.2L40,0l-6.7,5.4c-2-0.5-4-0.8-6.1-0.9L24,0l-7,3.7l0.5,8.5c-1.7,1.2-3.2,2.6-4.5,4.2L5,15.8l-2,7.5l7,5c-0.1,1-0.2,2.1-0.2,3.2s0.1,2.2,0.2,3.2l-7,5l2,7.5l8-0.7c1.3,1.6,2.8,3,4.5,4.2L17,59l7,3.7l3.2-6.3c2.1-0.1,4.1-0.4,6.1-0.9L40,61l6.7-5.4L43.3,61l6.7,5.4l3.2-6.3c2-0.5,4-0.8,6.1-0.9L62,65l7-3.7L68.5,52.8c1.7-1.2,3.2-2.6,4.5-4.2l8,0.7l2-7.5l-7-5c0.1-1,0.2-2.1,0.2-3.2s-0.1-2.2-0.2-3.2l7-5l-2-7.5l-8,0.7c-1.3-1.6-2.8-3-4.5-4.2L69,8.7L62,5l-3.2,6.3c-2.1,0.1-4.1,0.4-6.1,0.9L50,6L43.3,7.2z M50,44c-7.7,0-14-6.3-14-14s6.3-14,14-14s14,6.3,14,14S57.7,44,50,44z" fill="black"/>
+</svg>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <a class="logo" href="#">
+      <div class="logo-icon">⚙️</div>
+      <div class="logo-text">Open Horology <span>Taiwan</span></div>
+    </a>
+    <div class="header-right">
+      <div class="user-avatar">👤</div>
+    </div>
+  </div>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#" class="active" onclick="switchTab('map',this)">開放地圖</a></li>
+      <li><a href="#" onclick="switchTab('brand',this)">品牌檔案庫</a></li>
+      <li><a href="#" onclick="switchTab('learning',this)">學習路徑</a></li>
+      <li><a href="#" onclick="switchTab('topics',this)">主題專欄</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- MAIN -->
+<div class="main-layout">
+
+  <!-- CONTENT AREA -->
+  <div class="content-area">
+
+    <!-- MAP TAB -->
+    <div class="tab-panel active" id="tab-map">
+      <div class="map-section">
+        <div class="search-bar">
+          <span>🔍</span>
+          <input type="text" placeholder="搜尋工坊、品牌、職人…">
+        </div>
+
+        <div class="map-container">
+          <div class="map-placeholder">
+            <!-- Taiwan SVG silhouette -->
+            <svg class="taiwan-map" width="220" height="420" viewBox="0 0 220 420" xmlns="http://www.w3.org/2000/svg">
+              <path d="M110,10 C115,8 130,12 145,22 C165,38 178,60 182,85 C185,105 182,125 178,145 C174,165 168,185 162,205 C156,225 150,242 146,260 C142,278 140,295 138,312 C136,328 133,342 128,355 C123,368 116,378 108,385 C100,392 92,395 85,392 C78,390 73,382 70,372 C67,362 66,350 67,338 C68,326 70,314 70,302 C70,290 68,278 65,266 C62,254 58,242 55,228 C52,214 50,198 51,182 C52,166 56,150 62,136 C68,122 76,110 84,100 C92,90 100,82 108,74 C116,66 122,58 120,42 C118,28 112,14 110,10Z" fill="#c8ddb0" stroke="#a0b888" stroke-width="2"/>
+              <!-- Green terrain accent -->
+              <path d="M108,50 C114,46 124,54 130,66 C136,78 138,94 136,110 C134,126 128,140 122,154 C116,168 110,180 106,192" fill="none" stroke="#7a9e60" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+
+            <!-- Ocean bg -->
+            <div style="position:absolute;inset:0;background:linear-gradient(160deg,#b8d4e8 0%,#9cc4dc 50%,#a8cce0 100%);z-index:-1;"></div>
+
+            <!-- Map Pins -->
+            <div class="map-pin pin-repair pin-1" onclick="showPopup()">
+              <div class="pin-icon"><span>🔧</span></div>
+              <div class="pin-label">王師傳鐘錶維修<br>(大安復興店)</div>
+            </div>
+
+            <div class="map-pin pin-repair pin-2" onclick="showPopup2()">
+              <div class="pin-icon"><span></span></div>
+              <div class="pin-label">王師傳鐘錶維修<br>(信義店)</div>
+            </div>
+
+            <div class="map-pin pin-micro pin-3">
+              <div class="pin-icon"><span></span></div>
+              <div class="pin-label">李氏精材工坊<br>(台北東區)</div>
+            </div>
+
+            <div class="map-pin pin-repair pin-4">
+              <div class="pin-icon"><span></span></div>
+              <div class="pin-label">王師傅工作坊<br>(信義區)</div>
+            </div>
+
+            <div class="map-pin pin-micro pin-5">
+              <div class="pin-icon"><span></span></div>
+              <div class="pin-label">李氏精材工坊<br>(台北東區)</div>
+            </div>
+
+            <div class="map-pin pin-learn pin-6">
+              <div class="pin-icon"><span></span></div>
+              <div class="pin-label">鐘錶學習指點</div>
+            </div>
+
+            <!-- Info Popup -->
+            <div class="map-popup" id="mapPopup" style="display:none;">
+              <span class="popup-close" onclick="closePopup()">✕</span>
+              <div class="popup-img"></div>
+              <div class="popup-title">李氏精材工坊</div>
+              <div class="popup-sub">L's Materials Workshop</div>
+              <div class="popup-desc">主要範疇：盤錶機芯銓路設計，稀有材質解析、複合材質研發</div>
+              <button class="popup-btn">查看詳情</button>
+            </div>
+
+            <!-- Map Controls -->
+            <div class="map-controls">
+              <button class="map-ctrl-btn">+</button>
+              <button class="map-ctrl-btn">−</button>
+            </div>
+
+            <!-- Legend -->
+            <div class="map-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div> 維修職人</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--accent-rust)"></div> 微型工坊</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--navy)"></div> 學習指點</div>
+            </div>
+
+            <div class="map-attr">資用的鐘錶 Herology map 服操縱</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explore Guides -->
+      <div class="explore-section">
+        <h2 class="section-title">探索指南</h2>
+        <div class="guide-cards">
+          <div class="guide-card">
+            <div class="guide-card-img-placeholder" style="background:linear-gradient(135deg,#8B6340,#6b4c2a)">⚙️</div>
+            <div class="guide-card-body">
+              <div class="guide-card-title">從擺輪、擒縱系統開始</div>
+              <div class="guide-card-desc">建立精密機械直觀認識。</div>
+            </div>
+          </div>
+          <div class="guide-card">
+            <div class="guide-card-img-placeholder" style="background:linear-gradient(135deg,#3d5a7a,#1e3256)">👴</div>
+            <div class="guide-card-body">
+              <div class="guide-card-title">拜訪巷弄老工匠</div>
+              <div class="guide-card-desc">拜訪巷弄老工匠，挖掘放大鏡背後的傳承心法與產業轉型。</div>
+            </div>
+          </div>
+          <div class="guide-card">
+            <div class="guide-card-img-placeholder" style="background:linear-gradient(135deg,#b8943f,#8a6c28)">🕰️</div>
+            <div class="guide-card-body">
+              <div class="guide-card-title">探索機械結構與美學</div>
+              <div class="guide-card-desc">從針的平衡，從複雜工藝提煉文化價值。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND TAB -->
+    <div class="tab-panel" id="tab-brand">
+      <div class="brand-section">
+        <h2 class="section-title">本土鐘錶品牌檔案庫</h2>
+        <p style="font-size:13px;color:var(--gray-warm);margin-bottom:20px;line-height:1.7;">
+          記錄台灣在地鐘錶品牌與職人工坊，涵蓋品牌故事、授權與素材、深度訪談，形成兼具廣度與深度的知識資源。
+        </p>
+
+        <div class="brand-grid">
+          <div class="brand-card">
+            <div class="brand-badge">維修 · 工坊</div>
+            <div class="brand-name">王師傳鐘錶維修</div>
+            <div class="brand-en">Master Wang Timepiece Repair</div>
+            <div class="brand-desc">傳統鐘錶維修職人，擁有三十年豐富經驗，專精機械懷錶與古董鐘修復，是台北老城區少數仍在運作的傳統修錶師。</div>
+            <div class="brand-tags">
+              <span class="brand-tag">機械維修</span>
+              <span class="brand-tag">古董鐘</span>
+              <span class="brand-tag">懷錶</span>
+            </div>
+          </div>
+
+          <div class="brand-card">
+            <div class="brand-badge">材料 · 研發</div>
+            <div class="brand-name">李氏精材工坊</div>
+            <div class="brand-en">L's Materials Workshop</div>
+            <div class="brand-desc">主要範疇：盤錶機芯銓路設計，稀有材質解析、複合材質研發。融合傳統工藝與現代材料科學，致力於開發在地獨特錶面材質。</div>
+            <div class="brand-tags">
+              <span class="brand-tag">材質研發</span>
+              <span class="brand-tag">機芯設計</span>
+              <span class="brand-tag">在地創新</span>
+            </div>
+          </div>
+
+          <div class="brand-card">
+            <div class="brand-badge">品牌 · 歷史</div>
+            <div class="brand-name">22 Studio</div>
+            <div class="brand-en">22 Studio Watches</div>
+            <div class="brand-desc">以水泥腕錶著稱的台灣獨立品牌，探索非傳統錶殼材質，代表台灣新生代獨立製錶的設計精神與材質突破。</div>
+            <div class="brand-tags">
+              <span class="brand-tag">水泥腕錶</span>
+              <span class="brand-tag">獨立品牌</span>
+              <span class="brand-tag">材質創新</span>
+            </div>
+          </div>
+
+          <div class="brand-card">
+            <div class="brand-badge">歷史 · 文化</div>
+            <div class="brand-name">大稻埕鐘錶街</div>
+            <div class="brand-en">Dadaocheng Watch District</div>
+            <div class="brand-desc">台北最具歷史底蘊的鐘錶聚落，從日據時代延伸至今，保留了大量台灣鐘錶產業記憶，是理解本土鐘錶文化的必訪之地。</div>
+            <div class="brand-tags">
+              <span class="brand-tag">歷史文化</span>
+              <span class="brand-tag">產業聚落</span>
+              <span class="brand-tag">實地探索</span>
+            </div>
+          </div>
+
+          <div class="brand-card">
+            <div class="brand-badge">修復 · 職人</div>
+            <div class="brand-name">王師傅工作坊</div>
+            <div class="brand-en">Master Wang's Workshop</div>
+            <div class="brand-desc">信義區的精密機械維修坊，擅長高複雜功能腕錶的機芯拆解與修復，並不定期開設職人見習工作坊。</div>
+            <div class="brand-tags">
+              <span class="brand-tag">精密機械</span>
+              <span class="brand-tag">高複雜功能</span>
+              <span class="brand-tag">職人工坊</span>
+            </div>
+          </div>
+
+          <div class="brand-card" style="border-style:dashed;opacity:0.7;cursor:default;">
+            <div style="text-align:center;padding:30px 0;color:var(--gray-warm);">
+              <div style="font-size:36px;margin-bottom:10px;">＋</div>
+              <div style="font-size:13px;">更多品牌持續收錄中</div>
+              <div style="font-size:11px;margin-top:4px;">6個月內目標：15個台灣鐘錶品牌頁面</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEARNING TAB -->
+    <div class="tab-panel" id="tab-learning">
+      <div class="learning-section">
+        <h2 class="section-title">鐘錶初探路徑（個人化學習）</h2>
+
+        <div class="path-intro">
+          <p>本平台建立智慧型學習推薦系統，讓使用者可自訂「學習期間」、「預期程度」與「品牌類型偏好」等設定。系統將自動從地圖平台與品牌檔案庫中，串接最適合的實體工坊、數位專欄資源，生成個人化的學習規劃。</p>
+        </div>
+
+        <div class="path-steps">
+          <div class="path-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-tag">必修 Podcast</div>
+              <h4>台灣製錶史（第1–3集）</h4>
+              <p>從日據時代的鐘錶傳入，到戰後台灣代工業的興起，再到當代獨立品牌的萌芽——建立對台灣鐘錶產業發展脈絡的完整理解，是進入這個領域的第一步。</p>
+            </div>
+          </div>
+
+          <div class="path-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-tag">地區專區</div>
+              <h4>探索大稻埕鐘錶街</h4>
+              <p>台北最具歷史底蘊的鐘錶聚落，從日據時代延伸至今。透過實地拜訪，感受鐘錶職人的日常工作環境，了解傳統維修工藝的傳承現狀。</p>
+            </div>
+          </div>
+
+          <div class="path-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div class="step-tag">專題文章</div>
+              <h4>22 Studio 水泥腕錶材質解析</h4>
+              <p>深度拆解台灣獨立品牌 22 Studio 如何突破傳統錶殼材質限制，以水泥打造兼具設計感與耐用性的腕錶，理解材質選擇背後的文化思考與工藝邏輯。</p>
+            </div>
+          </div>
+
+          <div class="path-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <div class="step-tag">實體工坊</div>
+              <h4>李氏精材工坊見習</h4>
+              <p>安排與李氏精材工坊的實地見習，近距離觀察機芯結構的拆解流程，以及複合材質的實際應用方式，從動手操作建立對精密機械的直觀感受。</p>
+            </div>
+          </div>
+
+          <div class="path-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <div class="step-tag">技術深化</div>
+              <h4>從擺輪到擒縱：機械機芯入門</h4>
+              <p>系統性學習機械腕錶的核心運作原理，了解擺輪、擒縱系統如何協同運作，建立對精密機械直觀且深入的理解，為進一步學習奠定基礎。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOPICS TAB -->
+    <div class="tab-panel" id="tab-topics">
+      <div class="topics-section">
+        <h2 class="section-title">主題專欄</h2>
+
+        <!-- About project -->
+        <div class="about-section" style="padding:0 0 24px 0;">
+          <div class="about-box">
+            <p>我還記得自己最初開始對機械錶產生興趣時，曾經嘗試在網路上尋找學習資源。然而，那段搜尋經驗讓我意識到一個明顯的斷層：<span class="highlight">現有的學習選項，多半只存在於兩個極端</span>——一端是像台灣鐘錶學院等以培養專業技術者為目標的專業訓練體系；另一端，則是市面上以體驗為主、完成一次製作便結束的單堂工作坊。</p>
+            <p>對當時的我而言，這兩種方式都無法真正回應我的需求。我真正想理解的，是機械錶背後更完整的脈絡——它如何在歷史中發展、台灣有哪些默默耕耘的職人、產業文化如何形成、本土品牌又如何在當代尋找自己的位置。然而，<span class="highlight">這些資訊分散在不同社群、訪談與零碎文章之中</span>，需要花費非常大量的時間去蒐集與理解。</p>
+            <p>此計畫將由三大核心構想組成：首先是建立「Open Horology Taiwan」地圖協作平台；其次是建立台灣首個「本土鐘錶品牌檔案庫」；最後則是規劃一套循序漸進的個人化學習路徑，讓每一位對機械錶好奇的人，都能找到理解產業脈絡的入口。</p>
+          </div>
+        </div>
+
+        <div class="project-pillars" style="margin-bottom:28px;">
+          <div class="pillar">
+            <div class="pillar-icon"></div>
+            <div class="pillar-title">開放地圖協作平台</div>
+            <div class="pillar-desc">綜覽實體探索地點並鼓勵資源分享，降低新手探索門檻</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon"></div>
+            <div class="pillar-title">本土品牌檔案庫</div>
+            <div class="pillar-desc">記錄產業故事與品牌特色，形成兼具廣度與深度的知識資源</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon"></div>
+            <div class="pillar-title">個人化學習路徑</div>
+            <div class="pillar-desc">讓初學者能在單一平台找到完整入門方向，循序漸進</div>
+          </div>
+        </div>
+
+        <h3 class="section-title" style="font-size:16px;">執行成果與預期影響力</h3>
+        <table class="goals-table">
+          <thead>
+            <tr>
+              <th style="width:22%">項目</th>
+              <th style="width:38%">內容說明</th>
+              <th>執行成果與預期影響力</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Open Horology Taiwan 地圖協作平台</strong></td>
+              <td>建立以「技術能見度」為核心的開放式鐘錶地圖，盤點並標誌全台鐘錶維修店、獨立工坊、品牌店面與歷史文化據點。透過開放協作將鐘錶隱藏於城市中的技術節點被看見並連結。</td>
+              <td>
+                <div><span class="goal-badge">6個月</span> 完成至少30個鐘錶相關據點整理並公開上線</div>
+                <div style="margin-top:8px">建立標準化分類並開放協作，降低新手探索門檻</div>
+                <div style="margin-top:8px">提升傳統維修產業的數位能見度，促進跨世代交流</div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>本土鐘錶品牌檔案庫</strong></td>
+              <td>建立台灣鐘錶品牌資料庫，採三種內容架構：①基礎品牌介紹頁、②授權專欄素材集、③深度訪談。形成兼具廣度與深度的知識資源。</td>
+              <td>
+                <div><span class="goal-badge">6個月</span> 建立至少15個台灣鐘錶品牌頁面</div>
+                <div style="margin-top:8px"><span class="goal-badge">12個月</span> 完成3篇深度訪談</div>
+                <div style="margin-top:8px">開放投稿，為台灣鐘錶產業建立可持續擴充的資料庫</div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>鐘錶初探路徑（個人化學習）</strong></td>
+              <td>建立智慧型學習推薦系統，使用者可自訂「學習期間」、「預期程度」與「品牌類型偏好」等。系統將自動串接最適合的實體工坊、數位專欄資源，生成個人化的學習規劃。</td>
+              <td>
+                <div><span class="goal-badge">6個月</span> 完成「鐘錶初探路徑」架構並公開第一版指南</div>
+                <div style="margin-top:8px">建立地圖與學習內容的互相導流機制</div>
+                <div style="margin-top:8px">讓初學者能在單一平台找到完整入門方向</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Topic cards -->
+        <h3 class="section-title" style="font-size:16px;margin-top:28px;">精選專欄文章</h3>
+        <div class="topic-grid">
+          <div class="topic-card">
+            <div class="topic-icon">⚙️</div>
+            <div class="topic-title">從擺輪、擒縱系統開始</div>
+            <div class="topic-desc">建立精密機械直觀認識。了解機械腕錶最核心的計時原理，從最基礎的物理運動出發，感受精密工藝的美學邏輯。</div>
+          </div>
+          <div class="topic-card">
+            <div class="topic-icon"></div>
+            <div class="topic-title">拜訪巷弄老工匠</div>
+            <div class="topic-desc">拜訪巷弄老工匠，挖掘放大鏡背後的傳承心法與產業轉型。探索台灣傳統鐘錶職人的生命故事與技藝傳承。</div>
+          </div>
+          <div class="topic-card">
+            <div class="topic-icon"></div>
+            <div class="topic-title">探索機械結構與美學</div>
+            <div class="topic-desc">從針的平衡，從複雜工藝提煉文化價值。機械錶不只是計時工具，更是工藝文明的縮影。</div>
+          </div>
+          <div class="topic-card">
+            <div class="topic-icon"></div>
+            <div class="topic-title">22 Studio 水泥腕錶材質解析</div>
+            <div class="topic-desc">深度解析台灣獨立品牌如何突破傳統材質限制，以水泥創造獨特的腕錶美學，探討在地設計的可能性。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end content-area -->
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-title">我的個人化學習</div>
+
+    <div class="sidebar-label">學習目標：</div>
+    <div class="sidebar-value">了解台灣鐘錶產業脈絡</div>
+
+    <div class="sidebar-label">目標程度：</div>
+    <div class="sidebar-chips">
+      <span class="sidebar-chip">入門探索</span>
+      <span class="sidebar-chip active">文化導覽 / 技術切探</span>
+      <span class="sidebar-chip">職人深度</span>
+    </div>
+
+    <div class="sidebar-label">品牌偏好：</div>
+    <div class="sidebar-chips">
+      <span class="sidebar-chip active">全部</span>
+      <span class="sidebar-chip active">在地創新</span>
+      <span class="sidebar-chip">歷史傳承</span>
+      <span class="sidebar-chip">獨立品牌</span>
+    </div>
+
+    <div class="rec-list">
+      <div class="sidebar-title" style="font-size:13px;border-bottom:none;margin-bottom:12px;">系統推薦踏踏程</div>
+
+      <div class="rec-item">
+        <div class="rec-num">1</div>
+        <div class="rec-text">
+          <strong>必修 Podcast：</strong>
+          台灣製錶史（第1-3集）
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">2</div>
+        <div class="rec-text">
+          <strong>地區專區：</strong>
+          探索大稻埕鐘錶街
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">3</div>
+        <div class="rec-text">
+          <strong>專題文章：</strong>
+          22 Studio 水泥腕錶材質解析
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">4</div>
+        <div class="rec-text">
+          <strong>實體工坊：</strong>
+          李氏精材工坊見習安排
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">5</div>
+        <div class="rec-text">
+          <strong>技術深化：</strong>
+          機械機芯入門講座
+        </div>
+      </div>
+    </div>
+  </aside>
+
+</div><!-- end main-layout -->
+
+<footer>
+  <strong>Open Horology Taiwan</strong> ｜ 開放鐘錶學習平台<br>
+  <span style="margin-top:4px;display:block;">建立台灣鐘錶知識的共同入口，讓每一位好奇者都能找到屬於自己的學習路徑。</span>
+</footer>
+
+<script>
+  function switchTab(tab, el) {
+    // Hide all panels
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    // Remove active from nav
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    // Show selected
+    document.getElementById('tab-' + tab).classList.add('active');
+    el.classList.add('active');
+  }
+
+  function showPopup() {
+    document.getElementById('mapPopup').style.display = 'block';
+  }
+
+  function showPopup2() {
+    const p = document.getElementById('mapPopup');
+    p.querySelector('.popup-title').textContent = '王師傳鐘錶維修';
+    p.querySelector('.popup-sub').textContent = 'Master Wang Timepiece Repair';
+    p.querySelector('.popup-desc').textContent = '傳統鐘錶維修職人，擁有三十年豐富經驗，專精機械懷錶與古董鐘修復。';
+    p.querySelector('.popup-img').textContent = '🔧';
+    p.style.display = 'block';
+  }
+
+  function closePopup() {
+    document.getElementById('mapPopup').style.display = 'none';
+  }
+</script>
+</body>
+</html>
