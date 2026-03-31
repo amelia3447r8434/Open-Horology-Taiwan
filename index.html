@@ -29,6 +29,8 @@
     background: var(--warm-white);
     color: var(--text-dark);
     overflow-x: hidden;
+    font-size: 15px;
+    line-height: 1.7;
   }
 
   /* ─── HEADER ─── */
@@ -120,12 +122,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 13px 36px;
+    padding: 15px 40px;
     color: rgba(255,255,255,0.85);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     border-bottom: 3px solid transparent;
     transition: all 0.2s;
     cursor: pointer;
@@ -198,7 +200,7 @@
 
   .map-placeholder {
     width: 100%;
-    height: 340px;
+    height: 480px;
     background: linear-gradient(145deg, #e8f0e8 0%, #d4e4d4 30%, #c8d8c8 60%, #b8c8b8 100%);
     position: relative;
     display: flex;
@@ -210,7 +212,7 @@
   /* Taiwan silhouette SVG map */
   .taiwan-map {
     position: absolute;
-    top: 30px;
+    top: 20px;
     left: 50%;
     transform: translateX(-60%);
     opacity: 0.7;
@@ -247,8 +249,8 @@
   .pin-label {
     background: white;
     border-radius: 6px;
-    padding: 4px 8px;
-    font-size: 11px;
+    padding: 5px 10px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text-dark);
     margin-top: 4px;
@@ -414,10 +416,10 @@
 
   .section-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--navy);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -453,36 +455,36 @@
 
   .guide-card-img {
     width: 100%;
-    height: 110px;
+    height: 160px;
     object-fit: cover;
   }
 
   .guide-card-img-placeholder {
     width: 100%;
-    height: 110px;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 36px;
+    font-size: 48px;
   }
 
   .guide-card-body {
-    padding: 12px;
+    padding: 16px;
     background: white;
   }
 
   .guide-card-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--navy);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .guide-card-desc {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--gray-warm);
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   /* ─── BRAND LIBRARY ─── */
@@ -527,7 +529,7 @@
 
   .brand-name {
     font-family: 'Noto Serif TC', serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--navy);
     margin-bottom: 4px;
@@ -535,16 +537,16 @@
 
   .brand-en {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
+    font-size: 15px;
     color: var(--gold);
     font-style: italic;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   .brand-desc {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-mid);
-    line-height: 1.7;
+    line-height: 1.8;
     margin-bottom: 14px;
   }
 
@@ -558,8 +560,8 @@
     background: var(--cream);
     color: var(--brown);
     border-radius: 4px;
-    padding: 3px 9px;
-    font-size: 11px;
+    padding: 4px 11px;
+    font-size: 12px;
     border: 1px solid rgba(107,76,42,0.15);
   }
 
@@ -578,23 +580,23 @@
   }
 
   .path-intro p {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-mid);
-    line-height: 1.8;
+    line-height: 1.9;
   }
 
   .path-steps {
     display: grid;
-    gap: 16px;
+    gap: 18px;
   }
 
   .path-step {
     background: white;
     border-radius: 12px;
-    padding: 20px;
+    padding: 22px;
     border: 1.5px solid rgba(184,148,63,0.12);
     display: flex;
-    gap: 16px;
+    gap: 18px;
     transition: all 0.2s;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
@@ -605,8 +607,8 @@
   }
 
   .step-num {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: var(--navy);
     color: white;
@@ -614,23 +616,23 @@
     align-items: center;
     justify-content: center;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
     flex-shrink: 0;
   }
 
   .step-content h4 {
     font-family: 'Noto Serif TC', serif;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--navy);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .step-content p {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-mid);
-    line-height: 1.7;
+    line-height: 1.8;
   }
 
   .step-tag {
@@ -638,9 +640,9 @@
     background: var(--cream);
     color: var(--brown);
     border-radius: 4px;
-    padding: 2px 8px;
-    font-size: 11px;
-    margin-bottom: 8px;
+    padding: 3px 10px;
+    font-size: 12px;
+    margin-bottom: 10px;
     border: 1px solid rgba(107,76,42,0.12);
   }
 
@@ -678,16 +680,16 @@
 
   .topic-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--navy);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 
   .topic-desc {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-mid);
-    line-height: 1.7;
+    line-height: 1.8;
   }
 
   /* ─── SIDEBAR ─── */
@@ -702,11 +704,11 @@
 
   .sidebar-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--navy);
-    margin-bottom: 16px;
-    padding-bottom: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
     border-bottom: 1.5px solid rgba(184,148,63,0.3);
     display: flex;
     align-items: center;
@@ -714,19 +716,19 @@
   }
 
   .sidebar-label {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--gray-warm);
     font-weight: 600;
     letter-spacing: 0.5px;
-    margin-bottom: 6px;
-    margin-top: 14px;
+    margin-bottom: 8px;
+    margin-top: 16px;
   }
 
   .sidebar-value {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-dark);
     font-weight: 500;
-    padding: 8px 12px;
+    padding: 9px 14px;
     background: white;
     border-radius: 6px;
     border: 1px solid rgba(184,148,63,0.15);
@@ -739,15 +741,15 @@
   .sidebar-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 7px;
   }
 
   .sidebar-chip {
     background: white;
     border: 1px solid rgba(184,148,63,0.25);
     border-radius: 16px;
-    padding: 4px 12px;
-    font-size: 12px;
+    padding: 5px 14px;
+    font-size: 13px;
     color: var(--text-mid);
   }
 
@@ -775,12 +777,12 @@
   .rec-item:hover { opacity: 0.75; }
 
   .rec-num {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: var(--navy);
     color: white;
-    font-size: 12px;
+    font-size: 13px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -789,7 +791,7 @@
   }
 
   .rec-text {
-    font-size: 12.5px;
+    font-size: 13.5px;
     color: var(--text-mid);
     line-height: 1.6;
   }
@@ -797,7 +799,7 @@
   .rec-text strong {
     display: block;
     color: var(--navy);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     margin-bottom: 2px;
   }
@@ -855,10 +857,10 @@
   }
 
   .about-box p {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-mid);
     line-height: 1.9;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
 
   .about-box p:last-child { margin-bottom: 0; }
@@ -890,16 +892,16 @@
 
   .pillar-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
     color: var(--navy);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .pillar-desc {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-mid);
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   /* Goals table */
@@ -907,22 +909,23 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .goals-table th {
     background: var(--navy);
     color: white;
-    padding: 10px 14px;
+    padding: 12px 16px;
     text-align: left;
     font-weight: 500;
+    font-size: 14px;
   }
 
   .goals-table td {
-    padding: 12px 14px;
+    padding: 14px 16px;
     border-bottom: 1px solid rgba(184,148,63,0.1);
     vertical-align: top;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--text-mid);
   }
 
@@ -993,7 +996,7 @@
         <div class="map-container">
           <div class="map-placeholder">
             <!-- Taiwan SVG silhouette -->
-            <svg class="taiwan-map" width="220" height="420" viewBox="0 0 220 420" xmlns="http://www.w3.org/2000/svg">
+            <svg class="taiwan-map" width="260" height="520" viewBox="0 0 220 420" xmlns="http://www.w3.org/2000/svg">
               <path d="M110,10 C115,8 130,12 145,22 C165,38 178,60 182,85 C185,105 182,125 178,145 C174,165 168,185 162,205 C156,225 150,242 146,260 C142,278 140,295 138,312 C136,328 133,342 128,355 C123,368 116,378 108,385 C100,392 92,395 85,392 C78,390 73,382 70,372 C67,362 66,350 67,338 C68,326 70,314 70,302 C70,290 68,278 65,266 C62,254 58,242 55,228 C52,214 50,198 51,182 C52,166 56,150 62,136 C68,122 76,110 84,100 C92,90 100,82 108,74 C116,66 122,58 120,42 C118,28 112,14 110,10Z" fill="#c8ddb0" stroke="#a0b888" stroke-width="2"/>
               <!-- Green terrain accent -->
               <path d="M108,50 C114,46 124,54 130,66 C136,78 138,94 136,110 C134,126 128,140 122,154 C116,168 110,180 106,192" fill="none" stroke="#7a9e60" stroke-width="3" stroke-linecap="round"/>
@@ -1004,7 +1007,7 @@
 
             <!-- Map Pins -->
             <div class="map-pin pin-repair pin-1" onclick="showPopup()">
-              <div class="pin-icon"><span>🔧</span></div>
+              <div class="pin-icon"><span></span></div>
               <div class="pin-label">王師傳鐘錶維修<br>(大安復興店)</div>
             </div>
 
@@ -1304,7 +1307,7 @@
         <h3 class="section-title" style="font-size:16px;margin-top:28px;">精選專欄文章</h3>
         <div class="topic-grid">
           <div class="topic-card">
-            <div class="topic-icon">⚙️</div>
+            <div class="topic-icon"></div>
             <div class="topic-title">從擺輪、擒縱系統開始</div>
             <div class="topic-desc">建立精密機械直觀認識。了解機械腕錶最核心的計時原理，從最基礎的物理運動出發，感受精密工藝的美學邏輯。</div>
           </div>
